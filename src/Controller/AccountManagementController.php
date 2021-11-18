@@ -40,7 +40,9 @@ class AccountManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            header('Content-Type: text/plain'); print_r($data); exit;
+            header('Content-Type: text/plain');
+            print_r($data);
+            exit;
         }
 
         return $this->renderForm('account_management/login.html.twig', [
@@ -68,7 +70,8 @@ class AccountManagementController extends AbstractController
                 $data = $form->getData();
                 $dateOfBirth = $data['dateOfBirth'];
                 $session->set('dateOfBirth', $dateOfBirth);
-            } else {
+            }
+            else {
                 return $this->renderForm('account_management/dob.html.twig', [
                     'form' => $form,
                 ]);
@@ -76,7 +79,7 @@ class AccountManagementController extends AbstractController
         }
 
         // If the user is under the age of 13, run through the COPPA process
-        if ($dateOfBirth->diff(new \DateTime)->y < 13) {
+        if ($dateOfBirth->diff(new \DateTime())->y < 13) {
             $form = $this->createForm(COPPAType::class);
             $form->handleRequest($request);
 
@@ -87,11 +90,13 @@ class AccountManagementController extends AbstractController
                 //   - Email link that provides a signable form in the browser
                 //$email = $data['parentGuardianEmail'];
                 $session->remove('dateOfBirth');
-                header('Content-Type: text/plain'); print_r($data); exit;
+                header('Content-Type: text/plain');
+                print_r($data);
+                exit;
             }
 
             return $this->renderForm('account_management/coppa.html.twig', [
-                'form' => $form
+                'form' => $form,
             ]);
         }
         else {
@@ -101,11 +106,13 @@ class AccountManagementController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $data = $form->getData();
 
-                header('Content-Type: text/plain'); print_r($data); exit;
+                header('Content-Type: text/plain');
+                print_r($data);
+                exit;
             }
 
             return $this->renderForm('account_management/register.html.twig', [
-                'form' => $form
+                'form' => $form,
             ]);
         }
     }

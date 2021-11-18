@@ -36,7 +36,7 @@ class DOBType extends AbstractType
                 'help' => 'Must be in YYYY-MM-DD format',
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Next'
+                'label' => 'Next',
             ])
         ;
     }

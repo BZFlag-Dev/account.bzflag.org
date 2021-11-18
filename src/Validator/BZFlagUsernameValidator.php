@@ -42,7 +42,6 @@ class BZFlagUsernameValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, 'string');
         }
 
-
         // NOTE: phpBB checks for the username length, which is set in ACP
         if (strlen($value) < $constraint->min_length) {
             $this->context->buildViolation($constraint->message_too_short)
@@ -51,13 +50,12 @@ class BZFlagUsernameValidator extends ConstraintValidator
             ;
         }
         // Max length is 32 including the terminating NUL
-        else if (strlen($value) > $constraint->max_length) {
+        elseif (strlen($value) > $constraint->max_length) {
             $this->context->buildViolation($constraint->message_too_long)
                 ->setParameter('{{ max_length }}', $constraint->max_length)
                 ->addViolation()
             ;
         }
-
 
         // Don't allow leading or trailing whitespace
         if (ctype_space(substr($value, 0, 1)) || ctype_space(substr($value, -1))) {
@@ -76,8 +74,7 @@ class BZFlagUsernameValidator extends ConstraintValidator
         // Start with true to reject leading space
         $lastWasSpace = true;
         $alnumCount = 0;
-        for ($i = 0; $i < strlen($value); $i++)
-        {
+        for ($i = 0; $i < strlen($value); ++$i) {
             $char = substr($value, $i, 1);
 
             // Reject leading and sequential spaces
@@ -89,14 +86,14 @@ class BZFlagUsernameValidator extends ConstraintValidator
 
             // Reject ' and " and any non-printable
             // NOTE: phpBB's validate_username function checks for double quotes
-            if ($char == "'" || $char == '"' || !ctype_print($char)) {
+            if ("'" == $char || '"' == $char || !ctype_print($char)) {
                 $this->context->buildViolation($constraint->message_invalid_chars)
                     ->addViolation()
                 ;
             }
 
             // Handle non-ASCII in case phpBB isn't set right
-            if (ord($char) > 0x7f) {
+            if (ord($char) > 0x7F) {
                 $this->context->buildViolation($constraint->message_invalid_chars)
                     ->addViolation()
                 ;
@@ -105,16 +102,18 @@ class BZFlagUsernameValidator extends ConstraintValidator
             // Only space is valid whitespace
             // NOTE: ctype_print might make this whitespace check pointless
             if (ctype_space($char)) {
-                if ($char != ' ') {
+                if (' ' != $char) {
                     $this->context->buildViolation($constraint->message_invalid_whitespace)
                         ->addViolation()
                     ;
                 }
                 $lastWasSpace = true;
-            } else {
+            }
+            else {
                 $lastWasSpace = false;
-                if (ctype_alnum($char))
-                    $alnumCount++;
+                if (ctype_alnum($char)) {
+                    ++$alnumCount;
+                }
             }
         }
 

@@ -35,7 +35,7 @@ class COPPAType extends AbstractType
                 'help' => "Children under the age of 13 must have their parent or guardian's permission to use this service.",
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Submit'
+                'label' => 'Submit',
             ])
         ;
     }
