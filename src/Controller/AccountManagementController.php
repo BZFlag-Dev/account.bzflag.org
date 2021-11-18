@@ -31,7 +31,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccountManagementController extends AbstractController
 {
     /**
-     * @Route("/account/login", name="account_management_login")
+     * @Route("/login", name="account_management_login")
      */
     public function login(Request $request): Response
     {
@@ -49,7 +49,7 @@ class AccountManagementController extends AbstractController
     }
 
     /**
-     * @Route("/account/register", name="account_management_register")
+     * @Route("/register", name="account_management_register")
      */
     public function register(Request $request): Response
     {
