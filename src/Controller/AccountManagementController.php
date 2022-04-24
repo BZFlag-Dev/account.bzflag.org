@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /*
  * BZFlag Accounts - Manage accounts and organizations for BZFlag
  * Copyright (C) 2021  BZFlag & Associates
@@ -30,9 +32,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccountManagementController extends AbstractController
 {
-    /**
-     * @Route("/login", name="account_management_login")
-     */
     public function login(Request $request): Response
     {
         $form = $this->createForm(LoginType::class);
@@ -50,9 +49,6 @@ class AccountManagementController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/register", name="account_management_register")
-     */
     public function register(Request $request): Response
     {
         // A session will be used to track the Date of Birth

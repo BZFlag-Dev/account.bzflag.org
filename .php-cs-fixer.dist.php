@@ -2,10 +2,8 @@
 
 $finder = PhpCsFixer\Finder::create()
     ->exclude('bin/')
-    ->exclude('migrations/')
     ->exclude('var/')
-    ->notPath('.env.local')
-    ->notPath('src/settings.example.php')
+    ->exclude('vendor/')
     ->exclude('config/')
     ->exclude('public/')
     ->notPath('src/Kernel.php')
@@ -17,8 +15,8 @@ $config = new PhpCsFixer\Config();
 return $config
     ->setRules([
         '@Symfony' => true,
-        //'strict_comparison' => true,
-        //'strict_param' => true,
+        'strict_comparison' => true,
+        'strict_param' => true,
         'array_syntax' => ['syntax' => 'short'],
         'multiline_whitespace_before_semicolons' => [
             'strategy' => 'new_line_for_chained_calls',
@@ -27,14 +25,14 @@ return $config
             'position' => 'next_line',
         ],
         'no_whitespace_in_blank_line' => true,
-        //'declare_strict_types' => true,
+        'declare_strict_types' => true,
         'header_comment' => [
             'comment_type' => 'comment',
             'location' => 'after_declare_strict',
             'separate' => 'bottom',
             'header' =>
 'BZFlag Accounts - Manage accounts and organizations for BZFlag
-Copyright (C) 2021  BZFlag & Associates
+Copyright (C) 2022  BZFlag & Associates
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
